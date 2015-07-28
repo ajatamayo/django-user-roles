@@ -16,7 +16,9 @@ class UserRole(models.Model):
         return getattr(self, self.child)
 
     def __eq__(self, other):
-        return self.name == other.name
+        if hasattr(other, 'name'):
+            return self.name == other.name
+        return False
 
     def __getattr__(self, name):
         if name.startswith('is_'):
